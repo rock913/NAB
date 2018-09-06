@@ -69,7 +69,7 @@ class TruePositiveTest(unittest.TestCase):
       probationaryPeriod=0)
     (_, score) = scorer.getScore()
 
-    self.assertAlmostEquals(score, self.costMatrix["tpWeight"], 4)
+    self.assertAlmostEqual(score, self.costMatrix["tpWeight"], 4)
     self._checkCounts(scorer.counts, length-windowSize*numWindows, 1, 0,
       windowSize*numWindows-1)
 
@@ -222,7 +222,7 @@ class TruePositiveTest(unittest.TestCase):
 
     # TP score + FP score + 1 should be very close to 0; the 1 is added to
     # account for the subsequent FN contribution.
-    self.assertAlmostEquals(score1 + score2 + 1, 0.0, 3)
+    self.assertAlmostEqual(score1 + score2 + 1, 0.0, 3)
     self._checkCounts(scorer1.counts, length-windowSize*numWindows, 1, 0,
       windowSize*numWindows-1)
     self._checkCounts(scorer2.counts, length-windowSize*numWindows-1, 0, 1,

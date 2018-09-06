@@ -43,8 +43,8 @@ def optimizeThreshold(args):
     initialGuess=0.5,
     tolerance=.0000001)
 
-  print "Optimizer found a max score of {} with anomaly threshold {}.".format(
-    optimizedScore, optimizedThreshold)
+  print("Optimizer found a max score of {} with anomaly threshold {}.".format(
+    optimizedScore, optimizedThreshold))
 
   return {
     "threshold": optimizedThreshold,
@@ -119,15 +119,15 @@ def twiddle(objFunction, args, initialGuess=0.5, tolerance=0.00001,
         x += delta
         delta *= 0.5
 
-    print "Parameter:", x
-    print "Best score:", bestScore
-    print "Step size:", delta
-    print
+    print("Parameter:", x)
+    print("Best score:", bestScore)
+    print("Step size:", delta)
+    print()
 
   # Return the threshold from pastCalls dict. Due to numerical precision, the
   # the while loop may not always yield the threshold that reflects the max
   # score (bestScore).
-  bestParam = max(pastCalls.iterkeys(), key=lambda key: pastCalls[key])
+  bestParam = max(iter(pastCalls.keys()), key=lambda key: pastCalls[key])
 
   return (bestParam, pastCalls[bestParam])
 

@@ -93,9 +93,9 @@ class ScorerTest(unittest.TestCase):
     
     # Make arbitrary detections, score, repeat
     scores = []
-    for _ in xrange(20):
+    for _ in range(20):
       predictions = pandas.Series([0]*length)
-      indices = random.sample(range(length), 10)
+      indices = random.sample(list(range(length)), 10)
       predictions[indices] = 1
       scorer = Scorer(timestamps, predictions, labels, windows, self.costMatrix,
         probationaryPeriod=0)
@@ -204,7 +204,7 @@ class ScorerTest(unittest.TestCase):
       probationaryPeriod=0)
     (_, score) = scorer.getScore()
     
-    self.assertAlmostEquals(score, -0.9540, 4)
+    self.assertAlmostEqual(score, -0.9540, 4)
     self._checkCounts(scorer.counts, length-windowSize*numWindows-1, 2, 1, 8)
 
 

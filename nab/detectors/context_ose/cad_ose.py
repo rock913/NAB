@@ -20,6 +20,25 @@
 
 from nab.detectors.context_ose.context_operator import ContextOperator
 
+def cmp_to_key(mycmp):
+    'Convert a cmp= function into a key= function'
+    class K:
+        def __init__(self, obj, *args):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) < 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) > 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) <= 0
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) >= 0
+        def __ne__(self, other):
+            return mycmp(self.obj, other.obj) != 0
+    return K
+
 class ContextualAnomalyDetectorOSE(object):
 
   """
@@ -90,7 +109,7 @@ class ContextualAnomalyDetectorOSE(object):
     else :
       percentSelectedContextActive = 0.0
 
-    srtAContexts = sorted(activeContexts, cmp=aContextsCMP)
+    srtAContexts = sorted(activeContexts, key=cmp_to_key(aContextsCMP))
     activeNeurons = [ cInf[0] for cInf in srtAContexts[-self.maxActNeurons:] ]
 
     currNeurFacts = set([ 2 ** 31 + fact for fact in activeNeurons ])
@@ -136,6 +155,7 @@ class ContextualAnomalyDetectorOSE(object):
     self.aScoresHistory.append(currentAnomalyScore)
 
     return returnedAnomalyScore
+
 
 
 def aContextsCMP(x, y):

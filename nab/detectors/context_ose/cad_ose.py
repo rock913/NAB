@@ -156,7 +156,8 @@ class ContextualAnomalyDetectorOSE(object):
 
     return returnedAnomalyScore
 
-
+def cmp(a, b):
+    return (a > b) - (a < b)
 
 def aContextsCMP(x, y):
   if cmp(x[1], y[1]) !=0 :
